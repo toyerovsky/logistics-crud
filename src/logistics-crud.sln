@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsCRUD", "logistics-crud\LogisticsCRUD.csproj", "{A644CF1E-D8C7-48F4-AF74-D339179DF4E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsCRUD", "LogisticsCRUD\LogisticsCRUD.csproj", "{A644CF1E-D8C7-48F4-AF74-D339179DF4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsCRUD.Infrastructure", "LogisticsCRUD.DAL\LogisticsCRUD.Infrastructure.csproj", "{863F45BB-C213-4E4F-81F0-2B40D1FFD6C1}"
 EndProject
