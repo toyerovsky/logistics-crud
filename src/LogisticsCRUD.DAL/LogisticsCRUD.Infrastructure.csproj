@@ -50,6 +50,7 @@
     <Compile Include="Factory\CourierSqlFactory.cs" />
     <Compile Include="Factory\CustomerSqlFactory.cs" />
     <Compile Include="Mapping\BusinessEntityMap.cs" />
+    <Compile Include="Mapping\CourierMap.cs" />
     <Compile Include="Mapping\CustomerMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CourierRepository.cs" />

@@ -16,7 +16,7 @@ namespace PSK.Databases.LogisticsCRUD.Infrastructure.Factory
 
         public string GetSqlForInsert()
         {
-            return "INSERT INTO COURIER (ID, NAME, SURNAME, AGE, CREATION_DATE) VALUES(customer_id_sequence.nextval, :name, :surname, :age, sysdate)";
+            return "INSERT INTO COURIER (ID, NAME, SURNAME, AGE, CREATION_DATE) VALUES (customer_id_sequence.nextval, :name, :surname, :age, sysdate)";
         }
 
         public string GetSqlForUpdate()

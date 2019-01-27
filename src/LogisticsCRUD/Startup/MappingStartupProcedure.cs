@@ -10,6 +10,7 @@ namespace PSK.Databases.LogisticsCRUD.Startup
             FluentMapper.Initialize(config =>
             {
                 config.AddMap(new CustomerMap());
+                config.AddMap(new CourierMap());
             });
         }
     }
