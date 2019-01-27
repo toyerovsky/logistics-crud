@@ -24,7 +24,8 @@ namespace PSK.Databases.LogisticsCRUD.Forms
 
         private void couriersButton_Click(object sender, EventArgs e)
         {
-
+            var customersForm = Program.Container.Resolve<CourierListForm>();
+            customersForm.Show();
         }
 
         private void complaintsButton_Click(object sender, EventArgs e)

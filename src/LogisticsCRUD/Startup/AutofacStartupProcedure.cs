@@ -1,12 +1,13 @@
 ﻿using Autofac;
-using System.Configuration;
-using System.Data;
 using Dapper;
 using Oracle.ManagedDataAccess.Client;
 using PSK.Databases.LogisticsCRUD.Domain.Customer;
 using PSK.Databases.LogisticsCRUD.Forms;
 using PSK.Databases.LogisticsCRUD.Infrastructure.Factory;
 using PSK.Databases.LogisticsCRUD.Infrastructure.Repository;
+using System.Configuration;
+using System.Data;
+using PSK.Databases.LogisticsCRUD.Domain.Courier;
 
 namespace PSK.Databases.LogisticsCRUD.Startup
 {
@@ -15,6 +16,7 @@ namespace PSK.Databases.LogisticsCRUD.Startup
         public void Run()
         {
             var customerSqlFactory = new CustomerSqlFactory();
+            var courierSqlFactory = new CourierSqlFactory();
 
             var containerBuilder = new ContainerBuilder();
             var connectionString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
@@ -29,9 +31,12 @@ namespace PSK.Databases.LogisticsCRUD.Startup
 
             containerBuilder.RegisterType<CustomerRepository>().As<ICustomerRepository>()
                 .InstancePerDependency().WithParameter("sqlFactory", customerSqlFactory);
+            containerBuilder.RegisterType<CourierRepository>().As<ICourierRepository>()
+                .InstancePerDependency().WithParameter("sqlFactory", courierSqlFactory);
 
             containerBuilder.RegisterType<MainForm>().AsSelf();
             containerBuilder.RegisterType<CustomerListForm>().AsSelf();
+            containerBuilder.RegisterType<CourierListForm>().AsSelf();
 
             Program.Container = containerBuilder.Build();
         }

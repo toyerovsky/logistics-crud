@@ -47,7 +47,9 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="ComplaintEntity.cs" />
     <Compile Include="CountryEntity.cs" />
-    <Compile Include="CourierEntity.cs" />
+    <Compile Include="Courier\CourierEntity.cs" />
+    <Compile Include="Courier\ICourierRepository.cs" />
+    <Compile Include="Courier\ICourierSqlFactory.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\IBusinessRepository.cs" />
