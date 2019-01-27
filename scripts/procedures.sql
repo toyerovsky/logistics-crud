@@ -57,3 +57,30 @@ BEGIN
   CLOSE RichRefund_c;
 END;
 /
+
+
+CREATE OR REPLACE FUNCTION AverageVehiclesAge
+RETURN NUMBER
+IS
+sumOfAge NUMBER;
+averageAge NUMBER;
+vehiclesCounter NUMBER;
+  CURSOR Vehicles_C IS
+    SELECT production_year FROM vehicle;
+    v_a vehicle.production_year%TYPE;
+BEGIN
+  sumOfAge := 0;
+  averageAge := 0;
+  vehiclesCounter := 0;
+  OPEN Vehicles_C;
+  LOOP
+    FETCH Vehicles_C INTO v_a;
+    EXIT WHEN Vehicles_C%notfound;
+    sumOfAge := sumOfAge + ((EXTRACT(YEAR FROM SYSDATE)) - v_a);
+    vehiclesCounter := vehiclesCounter + 1;
+  END LOOP;
+  CLOSE Vehicles_C;
+  averageAge := ROUND((sumOfAge / vehiclesCounter), 2);
+  RETURN averageAge;
+END;
+/
