@@ -1,11 +1,10 @@
 ﻿using Dapper;
-using LogisticsCRUD.DAL.Factory;
-using LogisticsCRUD.Domain;
+using PSK.Databases.LogisticsCRUD.Domain.Common;
 using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 
-namespace LogisticsCRUD.DAL.Repository
+namespace PSK.Databases.LogisticsCRUD.Infrastructure.Repository
 {
     public class DapperBusinessRepository<T> : IDapperBusinessRepository<T, int> where T : BusinessEntity
     {
@@ -26,18 +25,19 @@ namespace LogisticsCRUD.DAL.Repository
 
         public virtual IEnumerable<T> GetAll()
         {
-            var entities = Connection.Query<T>(SqlFactory.GetSqlForGetAll());
+            var query = SqlFactory.GetSqlForGetAll();
+            var entities = Connection.Query<T>(query);
             return entities;
         }
 
-        public virtual void Insert(T entity)
+        public virtual void Insert(T entity, IDbTransaction transaction = null)
         {
             var dynamicObject = new ExpandoObject() as IDictionary<string, object>;
             foreach (var property in typeof(T).GetProperties())
             {
-                dynamicObject.Add(property.Name, property.GetValue(entity));
+                dynamicObject.Add(property.Name.ToLower(), property.GetValue(entity));
             }
-            var command = new CommandDefinition(SqlFactory.GetSqlForInsert(), dynamicObject);
+            var command = new CommandDefinition(SqlFactory.GetSqlForInsert(), dynamicObject, transaction);
             Connection.Execute(command);
         }
 
@@ -46,10 +46,7 @@ namespace LogisticsCRUD.DAL.Repository
             var dynamicObject = new ExpandoObject() as IDictionary<string, object>;
             foreach (var property in typeof(T).GetProperties())
             {
-                if (property.Name != nameof(entity.Id))
-                {
-                    dynamicObject.Add(property.Name, property.GetValue(entity));
-                }
+                dynamicObject.Add(property.Name, property.GetValue(entity));
             }
             var command = new CommandDefinition(SqlFactory.GetSqlForUpdate(), dynamicObject);
             Connection.Execute(command);

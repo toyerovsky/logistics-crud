@@ -1,9 +1,7 @@
 ﻿using System;
-using LogisticsCRUD.Domain;
 using System.Data;
-using LogisticsCRUD.DAL.Factory;
 
-namespace LogisticsCRUD.DAL
+namespace PSK.Databases.LogisticsCRUD.Domain.Common
 {
     public interface IDapperBusinessRepository<TEntity, TKey> : IBusinessRepository<TEntity, TKey>, IDisposable where TEntity : BusinessEntity
     {

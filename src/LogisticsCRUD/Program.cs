@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
+using PSK.Databases.LogisticsCRUD.Forms;
 
 namespace PSK.Databases.LogisticsCRUD
 {
@@ -19,7 +20,7 @@ namespace PSK.Databases.LogisticsCRUD
         {
             var startupProcedures = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(IStartupProcedure).IsAssignableFrom(p));
+                .Where(p => p.IsInterface == false && typeof(IStartupProcedure).IsAssignableFrom(p));
 
             foreach (var startupProcedureType in startupProcedures)
             {

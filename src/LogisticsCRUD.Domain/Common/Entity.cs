@@ -1,4 +1,4 @@
-﻿namespace LogisticsCRUD.Domain
+﻿namespace PSK.Databases.LogisticsCRUD.Domain.Common
 {
     public class Entity
     {

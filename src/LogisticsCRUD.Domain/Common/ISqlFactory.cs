@@ -1,6 +1,4 @@
-﻿using LogisticsCRUD.Domain;
-
-namespace LogisticsCRUD.DAL.Factory
+﻿namespace PSK.Databases.LogisticsCRUD.Domain.Common
 {
     public interface ISqlFactory
     {

@@ -1,4 +1,6 @@
-﻿namespace LogisticsCRUD.Domain
+﻿using PSK.Databases.LogisticsCRUD.Domain.Common;
+
+namespace PSK.Databases.LogisticsCRUD.Domain
 {
     public class AddressEntity_CustomerEntity : Entity
     {

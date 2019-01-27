@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PSK.Databases.LogisticsCRUD.Domain.Common;
 
-namespace LogisticsCRUD.Domain
+namespace PSK.Databases.LogisticsCRUD.Domain
 {
     public class AddressEntity : BusinessEntity
     {

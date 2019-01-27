@@ -1,8 +1,8 @@
 ﻿using System.Data;
-using LogisticsCRUD.DAL.Factory;
-using LogisticsCRUD.Domain;
+using PSK.Databases.LogisticsCRUD.Domain.Common;
+using PSK.Databases.LogisticsCRUD.Domain.Customer;
 
-namespace LogisticsCRUD.DAL.Repository
+namespace PSK.Databases.LogisticsCRUD.Infrastructure.Repository
 {
     public class CustomerRepository : DapperBusinessRepository<CustomerEntity>, ICustomerRepository
     {
