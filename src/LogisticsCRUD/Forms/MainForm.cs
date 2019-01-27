@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Windows.Forms;
-using Autofac;
 
 namespace PSK.Databases.LogisticsCRUD.Forms
 {
@@ -35,7 +35,8 @@ namespace PSK.Databases.LogisticsCRUD.Forms
 
         private void packagesButton_Click(object sender, EventArgs e)
         {
-
+            var packagesForm = Program.Container.Resolve<PackageListForm>();
+            packagesForm.Show();
         }
 
         private void vehiclesButton_Click(object sender, EventArgs e)

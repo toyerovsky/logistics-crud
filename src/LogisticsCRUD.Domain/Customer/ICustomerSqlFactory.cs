@@ -4,6 +4,5 @@ namespace PSK.Databases.LogisticsCRUD.Domain.Customer
 {
     public interface ICustomerSqlFactory : ISqlFactory
     {
-        
     }
 }

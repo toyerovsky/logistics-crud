@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Factory\CourierSqlFactory.cs" />
     <Compile Include="Factory\CustomerSqlFactory.cs" />
+    <Compile Include="Factory\PackageSqlFactory.cs" />
     <Compile Include="Mapping\BusinessEntityMap.cs" />
     <Compile Include="Mapping\CourierMap.cs" />
     <Compile Include="Mapping\CustomerMap.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Repository\CourierRepository.cs" />
     <Compile Include="Repository\DapperBusinessRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\PackageRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogisticsCRUD.Domain\LogisticsCRUD.Domain.csproj">

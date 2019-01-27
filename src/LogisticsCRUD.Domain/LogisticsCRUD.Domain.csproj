@@ -57,7 +57,9 @@
     <Compile Include="Customer\ICustomerSqlFactory.cs" />
     <Compile Include="Common\IDapperBusinessRepository.cs" />
     <Compile Include="Common\ISqlFactory.cs" />
-    <Compile Include="PackageEntity.cs" />
+    <Compile Include="Package\IPackageRepository.cs" />
+    <Compile Include="Package\IPackageSqlFactory.cs" />
+    <Compile Include="Package\PackageEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefundEntity.cs" />
     <Compile Include="RouteElementEntity.cs" />

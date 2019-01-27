@@ -7,6 +7,7 @@ using PSK.Databases.LogisticsCRUD.Infrastructure.Factory;
 using PSK.Databases.LogisticsCRUD.Infrastructure.Repository;
 using System.Configuration;
 using System.Data;
+using PSK.Databases.LogisticsCRUD.Domain;
 using PSK.Databases.LogisticsCRUD.Domain.Courier;
 
 namespace PSK.Databases.LogisticsCRUD.Startup
@@ -17,6 +18,7 @@ namespace PSK.Databases.LogisticsCRUD.Startup
         {
             var customerSqlFactory = new CustomerSqlFactory();
             var courierSqlFactory = new CourierSqlFactory();
+            var packageSqlFactory = new PackageSqlFactory();
 
             var containerBuilder = new ContainerBuilder();
             var connectionString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
@@ -33,10 +35,13 @@ namespace PSK.Databases.LogisticsCRUD.Startup
                 .InstancePerDependency().WithParameter("sqlFactory", customerSqlFactory);
             containerBuilder.RegisterType<CourierRepository>().As<ICourierRepository>()
                 .InstancePerDependency().WithParameter("sqlFactory", courierSqlFactory);
+            containerBuilder.RegisterType<PackageRepository>().As<IPackageRepository>()
+                .InstancePerDependency().WithParameter("sqlFactory", packageSqlFactory);
 
             containerBuilder.RegisterType<MainForm>().AsSelf();
             containerBuilder.RegisterType<CustomerListForm>().AsSelf();
             containerBuilder.RegisterType<CourierListForm>().AsSelf();
+            containerBuilder.RegisterType<PackageListForm>().AsSelf();
 
             Program.Container = containerBuilder.Build();
         }

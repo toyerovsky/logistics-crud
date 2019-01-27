@@ -3,35 +3,36 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using PSK.Databases.LogisticsCRUD.Domain;
 using PSK.Databases.LogisticsCRUD.Domain.Courier;
 
 namespace PSK.Databases.LogisticsCRUD.Forms
 {
-    public partial class CourierListForm : Form
+    public partial class PackageListForm : Form
     {
-        public ICourierRepository CourierRepository { get; }
+        public IPackageRepository PackageRepository { get; }
 
         private readonly IList<int> _rowsToUpdate = new List<int>();
 
-        public CourierListForm(ICourierRepository courierRepository)
+        public PackageListForm(IPackageRepository packageRepository)
         {
-            CourierRepository = courierRepository;
+            PackageRepository = packageRepository;
             InitializeComponent();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var couriers = CourierRepository.GetAll().ToList();
+            var packages = PackageRepository.GetAll().ToList();
             dataGridView.DataSource = bindingSource;
-            bindingSource.DataSource = new BindingList<CourierEntity>(couriers);
+            bindingSource.DataSource = new BindingList<PackageEntity>(packages);
             dataGridView.CellValueChanged += DataGridViewOnCellValueChanged;
         }
 
         private void DataGridViewOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var rowNumber = dataGridView.CurrentCellAddress.Y;
-            if (dataGridView.CurrentRow?.DataBoundItem is CourierEntity courier
-                && courier.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
+            if (dataGridView.CurrentRow?.DataBoundItem is PackageEntity package
+                && package.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
             {
                 _rowsToUpdate.Add(rowNumber);
             }
@@ -42,39 +43,39 @@ namespace PSK.Databases.LogisticsCRUD.Forms
             if (dataGridView.SelectedRows.Count != 0)
             {
                 if (MessageBox.Show(
-                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "kuriera" : "kurierów")}?",
+                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "paczkę" : "paczki")}?",
                         @"Potwierdzenie", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     foreach (DataGridViewRow customer in dataGridView.SelectedRows)
                     {
-                        CourierRepository.Delete(customer.DataBoundItem as CourierEntity);
+                        PackageRepository.Delete(customer.DataBoundItem as PackageEntity);
                     }
 
-                    bindingSource.DataSource = new BindingList<CourierEntity>(CourierRepository.GetAll().ToList());
+                    bindingSource.DataSource = new BindingList<PackageEntity>(PackageRepository.GetAll().ToList());
                 }
                 else
                 {
-                    MessageBox.Show(@"Należy wybrać jednego lub więcej kurierów.");
+                    MessageBox.Show(@"Należy wybrać jednego lub więcej paczek.");
                 }
             }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (bindingSource.DataSource is BindingList<CourierEntity> courierList)
+            if (bindingSource.DataSource is BindingList<PackageEntity> packageList)
             {
-                var entitiesToAdd = courierList.Where(x => x.Id == 0);
+                var entitiesToAdd = packageList.Where(x => x.Id == 0);
                 foreach (var entity in entitiesToAdd)
                 {
-                    CourierRepository.Insert(entity);
+                    PackageRepository.Insert(entity);
                 }
 
                 foreach (var rowNumber in _rowsToUpdate)
                 {
-                    CourierRepository.Update(courierList[rowNumber]);
+                    PackageRepository.Update(packageList[rowNumber]);
                 }
 
-                bindingSource.DataSource = new BindingList<CourierEntity>(CourierRepository.GetAll().ToList());
+                bindingSource.DataSource = new BindingList<PackageEntity>(PackageRepository.GetAll().ToList());
                 _rowsToUpdate.Clear();
             }
         }

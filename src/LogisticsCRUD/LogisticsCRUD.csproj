@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\PackageListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PackageListForm.Designer.cs">
+      <DependentUpon>PackageListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CourierListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup\MappingStartupProcedure.cs" />
+    <EmbeddedResource Include="Forms\PackageListForm.resx">
+      <DependentUpon>PackageListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CourierListForm.resx">
       <DependentUpon>CourierListForm.cs</DependentUpon>
     </EmbeddedResource>
