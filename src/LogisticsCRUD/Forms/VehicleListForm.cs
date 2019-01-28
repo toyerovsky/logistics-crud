@@ -1,37 +1,38 @@
-﻿using PSK.Databases.LogisticsCRUD.Domain.Customer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using PSK.Databases.LogisticsCRUD.Domain.Courier;
+using PSK.Databases.LogisticsCRUD.Domain.Vehicle;
 
 namespace PSK.Databases.LogisticsCRUD.Forms
 {
-    public partial class CustomerListForm : Form
+    public partial class VehicleListForm : Form
     {
-        public ICustomerRepository CustomerRepository { get; }
+        public IVehicleRepository VehicleRepository { get; }
 
         private readonly IList<int> _rowsToUpdate = new List<int>();
 
-        public CustomerListForm(ICustomerRepository customerRepository)
+        public VehicleListForm(IVehicleRepository vehicleRepository)
         {
-            CustomerRepository = customerRepository;
+            VehicleRepository = vehicleRepository;
             InitializeComponent();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var customers = CustomerRepository.GetAll().ToList();
+            var vehicles = VehicleRepository.GetAll().ToList();
             dataGridView.DataSource = bindingSource;
-            bindingSource.DataSource = new BindingList<CustomerEntity>(customers);
+            bindingSource.DataSource = new BindingList<VehicleEntity>(vehicles);
             dataGridView.CellValueChanged += DataGridViewOnCellValueChanged;
         }
 
         private void DataGridViewOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var rowNumber = dataGridView.CurrentCellAddress.Y;
-            if (dataGridView.CurrentRow?.DataBoundItem is CustomerEntity customer
-                && customer.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
+            if (dataGridView.CurrentRow?.DataBoundItem is VehicleEntity vehicle
+                && vehicle.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
             {
                 _rowsToUpdate.Add(rowNumber);
             }
@@ -42,39 +43,39 @@ namespace PSK.Databases.LogisticsCRUD.Forms
             if (dataGridView.SelectedRows.Count != 0)
             {
                 if (MessageBox.Show(
-                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "klienta" : "klientów")}?",
+                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "pojazd" : "pojazów")}?",
                         @"Potwierdzenie", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     foreach (DataGridViewRow row in dataGridView.SelectedRows)
                     {
-                        CustomerRepository.Delete(row.DataBoundItem as CustomerEntity);
+                        VehicleRepository.Delete(row.DataBoundItem as VehicleEntity);
                     }
 
-                    bindingSource.DataSource = new BindingList<CustomerEntity>(CustomerRepository.GetAll().ToList());
+                    bindingSource.DataSource = new BindingList<VehicleEntity>(VehicleRepository.GetAll().ToList());
                 }
                 else
                 {
-                    MessageBox.Show(@"Należy wybrać jednego lub więcej klientów.");
+                    MessageBox.Show(@"Należy wybrać jeden lub więcej pojazdów.");
                 }
             }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (bindingSource.DataSource is BindingList<CustomerEntity> customerList)
+            if (bindingSource.DataSource is BindingList<VehicleEntity> courierList)
             {
-                var entitiesToAdd = customerList.Where(x => x.Id == 0);
+                var entitiesToAdd = courierList.Where(x => x.Id == 0);
                 foreach (var entity in entitiesToAdd)
                 {
-                    CustomerRepository.Insert(entity);
+                    VehicleRepository.Insert(entity);
                 }
 
                 foreach (var rowNumber in _rowsToUpdate)
                 {
-                    CustomerRepository.Update(customerList[rowNumber]);
+                    VehicleRepository.Update(courierList[rowNumber]);
                 }
 
-                bindingSource.DataSource = new BindingList<CustomerEntity>(CustomerRepository.GetAll().ToList());
+                bindingSource.DataSource = new BindingList<VehicleEntity>(VehicleRepository.GetAll().ToList());
                 _rowsToUpdate.Clear();
             }
         }

@@ -1,6 +1,6 @@
 ﻿namespace PSK.Databases.LogisticsCRUD.Forms
 {
-    partial class PackageListForm
+    partial class VehicleListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,9 +37,9 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RecipientIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeliveryAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SenderIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberplateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductionYearColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VinColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -61,7 +61,7 @@
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(205, 40);
             this.deleteButton.TabIndex = 4;
-            this.deleteButton.Text = "Usuń paczkę";
+            this.deleteButton.Text = "Usuń pojazd";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
@@ -83,9 +83,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Paczki";
+            this.label1.Text = "Pojazdy";
             // 
             // dataGridView
             // 
@@ -96,9 +96,9 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdColumn,
             this.CreationDateColumn,
-            this.RecipientIdColumn,
-            this.DeliveryAddressColumn,
-            this.SenderIdColumn});
+            this.NumberplateColumn,
+            this.ProductionYearColumn,
+            this.VinColumn});
             this.dataGridView.DataSource = this.bindingSource;
             this.dataGridView.Location = new System.Drawing.Point(12, 33);
             this.dataGridView.Name = "dataGridView";
@@ -120,25 +120,27 @@
             this.CreationDateColumn.Name = "CreationDateColumn";
             this.CreationDateColumn.ReadOnly = true;
             // 
-            // RecipientIdColumn
+            // NumberplateColumn
             // 
-            this.RecipientIdColumn.DataPropertyName = "RecipientId";
-            this.RecipientIdColumn.HeaderText = "Id odbiorcy";
-            this.RecipientIdColumn.Name = "RecipientIdColumn";
+            this.NumberplateColumn.DataPropertyName = "Numberplate";
+            this.NumberplateColumn.HeaderText = "Rejestracja";
+            this.NumberplateColumn.Name = "NumberplateColumn";
             // 
-            // DeliveryAddressColumn
+            // ProductionYearColumn
             // 
-            this.DeliveryAddressColumn.DataPropertyName = "DeliveryAddressId";
-            this.DeliveryAddressColumn.HeaderText = "Id adresu dostawy";
-            this.DeliveryAddressColumn.Name = "DeliveryAddressColumn";
+            this.ProductionYearColumn.DataPropertyName = "ProductionYear";
+            this.ProductionYearColumn.HeaderText = "Rok produkcji";
+            this.ProductionYearColumn.Name = "ProductionYearColumn";
+            this.ProductionYearColumn.ReadOnly = true;
             // 
-            // SenderIdColumn
+            // VinColumn
             // 
-            this.SenderIdColumn.DataPropertyName = "SenderId";
-            this.SenderIdColumn.HeaderText = "Id wysyłającego";
-            this.SenderIdColumn.Name = "SenderIdColumn";
+            this.VinColumn.DataPropertyName = "Vin";
+            this.VinColumn.HeaderText = "Numer VIN";
+            this.VinColumn.Name = "VinColumn";
+            this.VinColumn.ReadOnly = true;
             // 
-            // PackageListForm
+            // VehicleListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -146,7 +148,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
-            this.Name = "PackageListForm";
+            this.Name = "VehicleListForm";
             this.ShowIcon = false;
             this.Text = "CustomerListForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -167,9 +169,9 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreationDateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RecipientIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryAddressColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SenderIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberplateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductionYearColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VinColumn;
     }
 }
 

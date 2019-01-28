@@ -45,9 +45,9 @@ namespace PSK.Databases.LogisticsCRUD.Forms
                         $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "kuriera" : "kurierów")}?",
                         @"Potwierdzenie", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    foreach (DataGridViewRow customer in dataGridView.SelectedRows)
+                    foreach (DataGridViewRow row in dataGridView.SelectedRows)
                     {
-                        CourierRepository.Delete(customer.DataBoundItem as CourierEntity);
+                        CourierRepository.Delete(row.DataBoundItem as CourierEntity);
                     }
 
                     bindingSource.DataSource = new BindingList<CourierEntity>(CourierRepository.GetAll().ToList());

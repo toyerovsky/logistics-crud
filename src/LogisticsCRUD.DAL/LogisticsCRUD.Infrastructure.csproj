@@ -47,17 +47,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory\ComplaintSqlFactory.cs" />
     <Compile Include="Factory\CourierSqlFactory.cs" />
     <Compile Include="Factory\CustomerSqlFactory.cs" />
     <Compile Include="Factory\PackageSqlFactory.cs" />
+    <Compile Include="Factory\RefundSqlFactory.cs" />
+    <Compile Include="Factory\VehicleSqlFactory.cs" />
     <Compile Include="Mapping\BusinessEntityMap.cs" />
+    <Compile Include="Mapping\ComplaintEntityMap.cs" />
     <Compile Include="Mapping\CourierMap.cs" />
     <Compile Include="Mapping\CustomerMap.cs" />
+    <Compile Include="Mapping\PackageEntityMap.cs" />
+    <Compile Include="Mapping\VehicleEntityMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ComplaintRepository.cs" />
     <Compile Include="Repository\CourierRepository.cs" />
     <Compile Include="Repository\DapperBusinessRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\PackageRepository.cs" />
+    <Compile Include="Repository\VehicleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogisticsCRUD.Domain\LogisticsCRUD.Domain.csproj">

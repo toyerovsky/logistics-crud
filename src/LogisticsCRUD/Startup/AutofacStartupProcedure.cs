@@ -8,7 +8,10 @@ using PSK.Databases.LogisticsCRUD.Infrastructure.Repository;
 using System.Configuration;
 using System.Data;
 using PSK.Databases.LogisticsCRUD.Domain;
+using PSK.Databases.LogisticsCRUD.Domain.Complaint;
 using PSK.Databases.LogisticsCRUD.Domain.Courier;
+using PSK.Databases.LogisticsCRUD.Domain.Package;
+using PSK.Databases.LogisticsCRUD.Domain.Vehicle;
 
 namespace PSK.Databases.LogisticsCRUD.Startup
 {
@@ -19,9 +22,11 @@ namespace PSK.Databases.LogisticsCRUD.Startup
             var customerSqlFactory = new CustomerSqlFactory();
             var courierSqlFactory = new CourierSqlFactory();
             var packageSqlFactory = new PackageSqlFactory();
+            var vehicleSqlFactory = new VehicleSqlFactory();
+            var complaintSqlFactory = new ComplaintSqlFactory();
 
             var containerBuilder = new ContainerBuilder();
-            var connectionString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings[Const.OracleConnectionStringKey].ConnectionString;
             containerBuilder.RegisterInstance(customerSqlFactory).As<ICustomerSqlFactory>().SingleInstance();
             containerBuilder.Register(ctx =>
             {
@@ -31,17 +36,25 @@ namespace PSK.Databases.LogisticsCRUD.Startup
                 return connection;
             }).As<IDbConnection>().InstancePerDependency();
 
+            const string sqlFactoryParamName = "sqlFactory";
+
             containerBuilder.RegisterType<CustomerRepository>().As<ICustomerRepository>()
-                .InstancePerDependency().WithParameter("sqlFactory", customerSqlFactory);
+                .InstancePerDependency().WithParameter(sqlFactoryParamName, customerSqlFactory);
             containerBuilder.RegisterType<CourierRepository>().As<ICourierRepository>()
-                .InstancePerDependency().WithParameter("sqlFactory", courierSqlFactory);
+                .InstancePerDependency().WithParameter(sqlFactoryParamName, courierSqlFactory);
             containerBuilder.RegisterType<PackageRepository>().As<IPackageRepository>()
-                .InstancePerDependency().WithParameter("sqlFactory", packageSqlFactory);
+                .InstancePerDependency().WithParameter(sqlFactoryParamName, packageSqlFactory);
+            containerBuilder.RegisterType<VehicleRepository>().As<IVehicleRepository>()
+                .InstancePerDependency().WithParameter(sqlFactoryParamName, vehicleSqlFactory);
+            containerBuilder.RegisterType<ComplaintRepository>().As<IComplaintRepository>()
+                .InstancePerDependency().WithParameter(sqlFactoryParamName, complaintSqlFactory);
 
             containerBuilder.RegisterType<MainForm>().AsSelf();
             containerBuilder.RegisterType<CustomerListForm>().AsSelf();
             containerBuilder.RegisterType<CourierListForm>().AsSelf();
             containerBuilder.RegisterType<PackageListForm>().AsSelf();
+            containerBuilder.RegisterType<VehicleListForm>().AsSelf();
+            containerBuilder.RegisterType<ComplaintListForm>().AsSelf();
 
             Program.Container = containerBuilder.Build();
         }

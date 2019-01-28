@@ -3,7 +3,7 @@ using PSK.Databases.LogisticsCRUD.Infrastructure.Mapping;
 
 namespace PSK.Databases.LogisticsCRUD.Startup
 {
-    public class MappingStartupProcedure : IStartupProcedure
+    public class EntityMappingStartupProcedure : IStartupProcedure
     {
         public void Run()
         {
@@ -11,6 +11,9 @@ namespace PSK.Databases.LogisticsCRUD.Startup
             {
                 config.AddMap(new CustomerMap());
                 config.AddMap(new CourierMap());
+                config.AddMap(new PackageEntityMap());
+                config.AddMap(new VehicleEntityMap());
+                config.AddMap(new ComplaintEntityMap());
             });
         }
     }

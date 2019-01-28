@@ -30,7 +30,8 @@ namespace PSK.Databases.LogisticsCRUD.Forms
 
         private void complaintsButton_Click(object sender, EventArgs e)
         {
-
+            var complaintForm = Program.Container.Resolve<ComplaintListForm>();
+            complaintForm.Show();
         }
 
         private void packagesButton_Click(object sender, EventArgs e)
@@ -41,7 +42,8 @@ namespace PSK.Databases.LogisticsCRUD.Forms
 
         private void vehiclesButton_Click(object sender, EventArgs e)
         {
-
+            var vehiclesForm = Program.Container.Resolve<VehicleListForm>();
+            vehiclesForm.Show();
         }
     }
 }

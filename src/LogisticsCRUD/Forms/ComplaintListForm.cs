@@ -4,36 +4,37 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using PSK.Databases.LogisticsCRUD.Domain;
+using PSK.Databases.LogisticsCRUD.Domain.Complaint;
 using PSK.Databases.LogisticsCRUD.Domain.Courier;
-using PSK.Databases.LogisticsCRUD.Domain.Package;
+using PSK.Databases.LogisticsCRUD.Domain.Vehicle;
 
 namespace PSK.Databases.LogisticsCRUD.Forms
 {
-    public partial class PackageListForm : Form
+    public partial class ComplaintListForm : Form
     {
-        public IPackageRepository PackageRepository { get; }
+        public IComplaintRepository ComplaintRepository { get; }
 
         private readonly IList<int> _rowsToUpdate = new List<int>();
 
-        public PackageListForm(IPackageRepository packageRepository)
+        public ComplaintListForm(IComplaintRepository complaintRepository)
         {
-            PackageRepository = packageRepository;
+            ComplaintRepository = complaintRepository;
             InitializeComponent();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var packages = PackageRepository.GetAll().ToList();
+            var complaint = ComplaintRepository.GetAll().ToList();
             dataGridView.DataSource = bindingSource;
-            bindingSource.DataSource = new BindingList<PackageEntity>(packages);
+            bindingSource.DataSource = new BindingList<ComplaintEntity>(complaint);
             dataGridView.CellValueChanged += DataGridViewOnCellValueChanged;
         }
 
         private void DataGridViewOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var rowNumber = dataGridView.CurrentCellAddress.Y;
-            if (dataGridView.CurrentRow?.DataBoundItem is PackageEntity package
-                && package.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
+            if (dataGridView.CurrentRow?.DataBoundItem is ComplaintEntity complaint
+                && complaint.Id != 0 && _rowsToUpdate.Contains(rowNumber) == false)
             {
                 _rowsToUpdate.Add(rowNumber);
             }
@@ -44,15 +45,15 @@ namespace PSK.Databases.LogisticsCRUD.Forms
             if (dataGridView.SelectedRows.Count != 0)
             {
                 if (MessageBox.Show(
-                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "paczkę" : "paczki")}?",
+                        $@"Czy na pewno chcesz usunąć {dataGridView.SelectedRows.Count} {(dataGridView.SelectedRows.Count == 1 ? "paczkę" : "paczek")}?",
                         @"Potwierdzenie", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     foreach (DataGridViewRow row in dataGridView.SelectedRows)
                     {
-                        PackageRepository.Delete(row.DataBoundItem as PackageEntity);
+                        ComplaintRepository.Delete(row.DataBoundItem as ComplaintEntity);
                     }
 
-                    bindingSource.DataSource = new BindingList<PackageEntity>(PackageRepository.GetAll().ToList());
+                    bindingSource.DataSource = new BindingList<ComplaintEntity>(ComplaintRepository.GetAll().ToList());
                 }
                 else
                 {
@@ -63,20 +64,20 @@ namespace PSK.Databases.LogisticsCRUD.Forms
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (bindingSource.DataSource is BindingList<PackageEntity> packageList)
+            if (bindingSource.DataSource is BindingList<ComplaintEntity> vehicleList)
             {
-                var entitiesToAdd = packageList.Where(x => x.Id == 0);
+                var entitiesToAdd = vehicleList.Where(x => x.Id == 0);
                 foreach (var entity in entitiesToAdd)
                 {
-                    PackageRepository.Insert(entity);
+                    ComplaintRepository.Insert(entity);
                 }
 
                 foreach (var rowNumber in _rowsToUpdate)
                 {
-                    PackageRepository.Update(packageList[rowNumber]);
+                    ComplaintRepository.Update(vehicleList[rowNumber]);
                 }
 
-                bindingSource.DataSource = new BindingList<PackageEntity>(PackageRepository.GetAll().ToList());
+                bindingSource.DataSource = new BindingList<ComplaintEntity>(ComplaintRepository.GetAll().ToList());
                 _rowsToUpdate.Clear();
             }
         }

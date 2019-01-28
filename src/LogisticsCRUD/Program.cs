@@ -20,7 +20,8 @@ namespace PSK.Databases.LogisticsCRUD
         {
             var startupProcedures = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => p.IsInterface == false && typeof(IStartupProcedure).IsAssignableFrom(p));
+                .Where(p => p.IsInterface == false && typeof(IStartupProcedure).IsAssignableFrom(p))
+                .OrderBy(x => x.Name);
 
             foreach (var startupProcedureType in startupProcedures)
             {
