@@ -145,6 +145,7 @@ CREATE TABLE route_element
   vehicle_id         NUMBER references vehicle (id),
   package_id         NUMBER references package (id),
   courier_id         NUMBER references courier (id),
+  description        VARCHAR2(100),
   prev_route_element NUMBER,
   next_route_element NUMBER,
   creation_date      DATE DEFAULT (sysdate)
